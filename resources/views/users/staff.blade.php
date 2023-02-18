@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section("title", "Users List")
+@section("title", "Staff List")
 
 @section("action-btn")
 <a class="btn btn-outline-primary btn-sm rounded-0" href="{{ route('users.create') }}">Create New Account</a>
@@ -18,6 +18,9 @@
         <th>Action</th>
       </tr>
     </thead>
+    @php
+      $i=0;
+    @endphp
     <tbody>
       @foreach ($data as $key => $user)
       <tr class="align-middle">
@@ -25,7 +28,7 @@
           {{ ++$i }}
         </td>
         <td>
-          {{ $user->business_name }}
+          {{ $user->name }}
         </td>
         <td>
           {{ $user->email }}

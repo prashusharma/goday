@@ -65,6 +65,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <!-- <label class="form-label">Logo</label> -->
+        <label class="m-0 mx-2 d-flex" style="align-items: center;">Select the logo</label>
         <input type="file" name="logo" class="form-control" autocomplete="off">
       </div>
     </div>
@@ -101,7 +102,7 @@
 
   <div class="row">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3 is-valid">
+      <div class="input-group input-group-outline my-3">
         <label class="form-label">Username </label>
         <input type="text" name="username" class="form-control" autocomplete="off" required>
       </div>

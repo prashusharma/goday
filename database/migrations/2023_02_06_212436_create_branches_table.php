@@ -18,10 +18,10 @@ class CreateBranchesTable extends Migration
             $table->string('company_id');
             $table->string('branch_name');
             $table->string('branch_code');
-            $table->string('opening_date');
+            $table->string('opening_date')->nullable();
             $table->string('opening_fund');
             $table->string('email');
-            $table->string('contact_number');
+            $table->string('contact_number')->nullable();
             $table->string('state');
             $table->string('city');
             $table->string('area');

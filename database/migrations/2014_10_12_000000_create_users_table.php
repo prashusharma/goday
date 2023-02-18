@@ -36,13 +36,14 @@ class CreateUsersTable extends Migration
             $table->string('interest')->nullable();
             $table->string('interest_amount')->nullable();
             $table->string('loan_amount')->nullable();
-            $table->string('type_of_installment')->nullable();
+            $table->string('loan_type')->nullable();
+            $table->string('installment_type')->nullable();
             $table->string('number_of_installment')->nullable();
             $table->string('installment_amount')->nullable();
             $table->string('start_date_of_installment')->nullable();
             $table->string('end_date_of_installment')->nullable();
             $table->string('percentage_fine_on_due')->nullable();
-            $table->string('extra_charges')->nullable();
+            $table->string('extra_charge')->nullable();
             $table->string('final_sanctioned_amount')->nullable();
             $table->string('role')->default('Member')->nullable();
             $table->integer('status')->default(0);

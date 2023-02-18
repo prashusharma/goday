@@ -3,6 +3,7 @@
 @section("title", "Create Staff")
 
 @section("action-btn")
+  <a class="btn btn-outline-warning rounded-0 btn-sm"  href="{{ route('roles.create') }}">Create Roles</a>
   <a class="btn btn-outline-warning rounded-0 btn-sm"  href="{{ route('department.index') }}">Manage Department</a>
   <a class="btn btn-outline-warning rounded-0 btn-sm"  href="{{ route('users.index') }}">Back</a>
 @endsection

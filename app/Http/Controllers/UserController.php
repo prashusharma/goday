@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
@@ -19,6 +20,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        // dd('$auth()->user()');
         $data = User::orderBy('id', 'DESC')->paginate(5);
         return view('users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -51,8 +53,7 @@ class UserController extends Controller
 
         $user = User::create($input);
 
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
+        return redirect()->back()->with('message', 'Member created successfully');
     }
 
     /**
@@ -64,55 +65,52 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        // dd($user);
         return view('users.show', compact('user'));
     }
 
     public function showMember($id)
     {
         $data = User::where('group_id', $id)->orderBy('id', 'DESC')->paginate(5);
-        
         return view('member.show', compact('data', "id"));
     }
     public function activeMember()
     {
         $data = User::where('status', 1)->paginate(5);
-        // dd($data);
         return view('users.active', compact('data'));
     }
     public function pendingMember()
     {
         $data = User::where('status', 0)->paginate(5);
-        
         return view('users.pending', compact('data'));
     }
     public function deletedMember()
     {
         $data = User::where('deleted', 1)->paginate(5);
-        
         return view('users.deleted', compact('data'));
     }
     public function staffMember()
     {
         $data = User::where('role', 'staff')->paginate(5);
-        
-        return view('users.deleted', compact('data'));
+        return view('users.staff', compact('data'));
     }
 
     public function createMember(Request $request)
     {
         $id = $request->id;
-        // dd('reaching here');
         return view('member.create', compact("id"));
     }
 
     public function updateStatus(Request $request, User $user)
     {
-        // dd($user);
         $user->status = $request->input('status');
         $user->save();
-        // return view('users.index');
         return response()->json(['success' => true]);
+    }
+
+    public function editMember($id){
+        $member = User::find($id);
+        // dd($member);
+        return view('member.edit')->with('member', $member);
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section("title", "User name: AKSR1234")
+@section("title",  auth()->user()->username != "" ? auth()->user()->username : "Super Admin")
 
 @section("action-btn")
 <a class="btn btn-outline-warning" style="display: none;" href="{{ route('recyclebin.index') }}">Change Password</a>
@@ -18,9 +18,9 @@
           <div class="card-body text-center">
             <!-- <img src="{{ asset('images/goday.jfif') }}" alt="avatar" class="img-fluid" style="width: 150px;"> -->
             <h3 class="my-3">Logo here</h3>
-            <h5 class="my-3">Company name</h5>
+            <h5 class="my-3">{{ auth()->user()->business_name != "" ? auth()->user()->business_name : "Loan App Master" }}</h5>
             <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
-            <a class="text-muted mb-4" href="www.google.com">Comapny website <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right mx-2" viewBox="0 0 16 16">
+            <a class="text-muted mb-4" target="_blank" href="{{ auth()->user()->website != "" ? auth()->user()->website : "http://goday.in/" }}">{{ auth()->user()->website != "" ? auth()->user()->website : "http://goday.in/" }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right mx-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
                 <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
               </svg> </a>
@@ -64,7 +64,7 @@
                 <p class="mb-0">Full Name</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Johnatan Smith</p>
+                <p class="text-muted mb-0">{{ auth()->user()->contact_person != "" ? auth()->user()->contact_person : "Rajesh Yadav" }}</p>
               </div>
             </div>
             <hr>
@@ -73,7 +73,7 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">example@example.com</p>
+                <p class="text-muted mb-0">{{ auth()->user()->email }}</p>
               </div>
             </div>
             <hr>
@@ -82,7 +82,7 @@
                 <p class="mb-0">Phone</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">(097) 234-5678</p>
+                <p class="text-muted mb-0">{{ auth()->user()->contact_number != "" ? auth()->user()->contact_number : "1234567890" }}</p>
               </div>
             </div>
             <hr>
@@ -91,7 +91,7 @@
                 <p class="mb-0">Mobile</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">(098) 765-4321</p>
+                <p class="text-muted mb-0">{{ auth()->user()->contact_number != "" ? auth()->user()->contact_number : "1234567890" }}</p>
               </div>
             </div>
             <hr>
@@ -100,7 +100,7 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                <p class="text-muted mb-0">{{ auth()->user()->city != "" ? auth()->user()->city : "Varanashi" }}, {{ auth()->user()->state != "" ? auth()->user()->state : "Uttar Pradesh" }}</p>
               </div>
             </div>
           </div>

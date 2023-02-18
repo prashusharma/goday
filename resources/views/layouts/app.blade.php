@@ -12,7 +12,6 @@
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Nucleo Icons -->
     <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
@@ -117,6 +116,7 @@
                         </ul>
                     </div>
                 </li>
+                @if(auth()->user()->role == 'super-admin')
                 <li class="nav-item">
                     <a class='nav-link text-white  {{ request()->is("admin*") ? "active bg-gradient-primary" : "" }}' href="{{ route('admin-setting.create') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -129,6 +129,7 @@
                         <span class="nav-link-text ms-1">Create Admin</span>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class='nav-link text-white  {{ request()->is("company-profile*") ? "active bg-gradient-primary" : "" }}' href="{{ route('company-profile.index') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -234,26 +235,22 @@
                         <ul class="nav ">
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('branch.index') }}">
-                                    <!-- <span class="sidenav-mini-icon"> D </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> Add New Account </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="{{ route('activeMember') }}">
-                                    <!-- <span class="sidenav-mini-icon"> S </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> View Active Account </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="{{ route('pendingMember') }}">
-                                    <!-- <span class="sidenav-mini-icon"> S </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> View Pending Account </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="{{ route('deletedMember') }}">
-                                    <!-- <span class="sidenav-mini-icon"> S </span> -->
-                                    <span class="sidenav-normal  ms-2  ps-1"> View Deleted Account </span>
+                                    <span class="sidenav-normal  ms-2  ps-1"> View Closed Account </span>
                                 </a>
                             </li>
                         </ul>
@@ -280,7 +277,6 @@
                         <span class="nav-link-text ms-1">Recycle Bin</span>
                     </a>
                 </li>
-                @can('role-create')
                 <li class="nav-item">
                     <a class='nav-link text-white  {{ request()->is("system-setting*") ? "active  bg-gradient-primary" : "" }}' href="{{ route('system-setting.index') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -291,8 +287,6 @@
                         <span class="nav-link-text ms-1">System Setting</span>
                     </a>
                 </li>
-                @endcan
-
             </ul>
         </div>
         <div class="sidenav-footer position-absolute w-100 bottom-0 ">
@@ -449,6 +443,8 @@
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 @yield("js")
 
 </html>

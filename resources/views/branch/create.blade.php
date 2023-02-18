@@ -7,7 +7,7 @@
 @endsection
 
 @section("css")
-<style> 
+<style>
 </style>
 @endsection
 
@@ -32,27 +32,27 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch Name</label>
-        <input type="text" name="branch_name" class="form-control" autocomplete="off">
+        <input type="text" name="branch_name" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch Code</label>
-        <input type="text" name="branch_code" class="form-control" autocomplete="off">
+        <input type="text" name="branch_code" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
   <div class="row">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <!-- <label class="form-label">Branch Opening date</label> -->
+      <label class="m-0 mx-2 d-flex" style="align-items: center;">Branch Opening date</label>
         <input type="date" name="opening_date" class="form-control" autocomplete="off">
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch Opening Fund</label>
-        <input type="number" name="opening_fund" class="form-control" autocomplete="off">
+        <input type="number" name="opening_fund" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
@@ -60,13 +60,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch Email</label>
-        <input type="email" name="email" class="form-control" autocomplete="off">
+        <input type="email" name="email" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch Contact Number</label>
-        <input type="number" name="contact_number" class="form-control" autocomplete="off">
+        <input type="number" name="contact_number invalid" id="contact_number" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
@@ -74,13 +74,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch State</label>
-        <input type="text" name="state" class="form-control" autocomplete="off">
+        <input type="text" name="state" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch City</label>
-        <input type="text" name="city" class="form-control" autocomplete="off">
+        <input type="text" name="city" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
@@ -88,13 +88,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Branch Area</label>
-        <input type="text" name="area" class="form-control" autocomplete="off">
+        <input type="text" name="area" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Pincode</label>
-        <input type="number" name="pincode" class="form-control" autocomplete="off">
+        <input type="number" name="pincode" maxlength="6" minlength="6" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 

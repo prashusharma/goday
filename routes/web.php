@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('admin-setting', App\Http\Controllers\AdminController::class);
     Route::resource('department', App\Http\Controllers\DepartmentController::class);
     Route::get('users/member/{id}', [UserController::class, 'showMember'])->name('users.showMember');
+    Route::get('member/edit/{id}', [UserController::class, 'editMember'])->name('users.editMember');
     Route::get('active-member', [UserController::class, 'activeMember'])->name('activeMember');
     Route::get('pending-member', [UserController::class, 'pendingMember'])->name('pendingMember');
     Route::get('deleted-member', [UserController::class, 'deletedMember'])->name('deletedMember');

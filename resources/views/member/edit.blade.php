@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
-@section("title", "Create Member")
+@section("title", "Edit Member")
 
-@section("action-btn")
-<a class="btn btn-outline-warning rounded-0 btn-sm" href="{{ route('users.showMember',$id) }}">Back</a>
-@endsection
 
 @section("css")
 <style>
@@ -70,24 +67,23 @@
     </div>
 @endif
 
-<form class="" action="{{ route('users.store') }}" method="POST">
+<form class="" action="" method="POST">
   @csrf
   <div class="row">
-    <input type="hidden" name="group_id" value="{{ $id }}">
     <input type="hidden" name="password" value="12345">
     <input type="hidden" name="company_id" value="{{ auth()->user()->id }}">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">A/C holder name</label>
-        <input type="text" name="name" class="form-control" autocomplete="off" required>
+        <input type="text" name="name" value="{{ $member->name }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <select name="loan_type" id="loan_type" class="form-control" required>
-          <option value="not_selected" class="text-muted" selected>Click to select Loan type</option>
-          <option value="flat_interest">Flat Interest</option>
-          <option value="reducing_interest">Reducing Interest</option>
+        <select name="loan_type" id="loan_type" value="{{ $member->loan_type }}" class="form-control" required>
+          <!-- <option value="not_selected" class="text-muted">Click to select Loan type</option> -->
+          <option value="flat_interest" {{ $member->loan_type =='flat_interest'?'Selected':''}}>Flat Interest</option>
+          <option value="reducing_interest" {{ $member->loan_type =='reducing_interest'?'Selected':''}}>Reducing Interest</option>
         </select>
       </div>
     </div>
@@ -95,14 +91,14 @@
   <div class="row">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="m-0 mx-2 d-flex" style="align-items: center;">Loan Sanction date</label>
-        <input type="date" name="sanction_date" class="form-control" autocomplete="off" required>
+        <label class="m-0 mx-2 d-flex" style="align-items: center;">Branch Opening date</label>
+        <input type="date" name="sanction_date" value="{{ $member->sanction_date }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Availble Fund (₹)</label>
-        <input type="number" name="opening_fund" class="form-control" autocomplete="off" required>
+        <input type="number" name="opening_fund" value="{{ $member->opening_fund }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div>
@@ -110,13 +106,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">principle Amount (₹)</label>
-        <input type="number" name="principle" id="principle" class="form-control" autocomplete="off" required>
+        <input type="number" name="principle" id="principle" value="{{ $member->principle }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Interest Per Anum (%)</label>
-        <input type="number" name="interest" id="interest" onchange="setInterest()" class="form-control" autocomplete="off" required>
+        <label class="form-label">Interest Added (%)</label>
+        <input type="number" name="interest" id="interest" value="{{ $member->interest }}" onchange="setInterest()" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div>
@@ -124,13 +120,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Interest Amount (₹)</label>
-        <input type="number" name="interest_amount" id="interest_amount" class="form-control" autocomplete="off" required>
+        <input type="number" name="interest_amount" id="interest_amount" value="{{ $member->interest_amount }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Loan Amount (₹)</label>
-        <input type="number" name="loan_amount" id="loan_amount" class="form-control" autocomplete="off" required>
+        <input type="number" name="loan_amount" id="loan_amount" value="{{ $member->loan_amount }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div>
@@ -140,13 +136,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Number Of Installment</label>
-        <input type="number" name="number_of_installment" onchange="setInstallment()" id="number_of_installment" class="form-control" autocomplete="off" required>
+        <input type="number" name="number_of_installment" value="{{ $member->number_of_installment }}" onchange="setInstallment()" id="number_of_installment" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Installment Amount</label>
-        <input type="number" name="installment_amount" id="installment_amount" class="form-control" autocomplete="off" required>
+        <input type="number" name="installment_amount" id="installment_amount" value="{{ $member->installment_amount }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div>
@@ -154,13 +150,13 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="m-0 mx-2 d-flex" style="align-items: center;">Start date Installment</label>
-        <input type="date" name="start_date_of_installment" id="start_date_of_installment" class="form-control" autocomplete="off" required>
+        <input type="date" name="start_date_of_installment" value="{{ $member->start_date_of_installment }}" id="start_date_of_installment" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="m-0 mx-2 d-flex" style="align-items: center;">End date of Installment</label>
-        <input type="date" name="end_date_of_installment" class="form-control" autocomplete="off" required>
+        <input type="date" name="end_date_of_installment" value="{{ $member->end_date_of_installment }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div>
@@ -169,17 +165,17 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <select name="percentage_fine_on_due" id="percentage_fine_on_due" class="form-control" required>
-          <option value="not_selected" class="text-muted" selected>Select % Fine on due amount</option>
-          <option value="0">0 % Fine on due amount</option>
-          <option value="0.5">0.5 % Fine on due amount</option>
-          <option value="1">1 % Fine on due amount</option>
-          <option value="1.5">1.5 % Fine on due amount</option>
-          <option value="2">2 % Fine on due amount</option>
+          <!-- <option value="not_selected" class="text-muted">Select % Fine on due amount</option> -->
+          <option value="0" {{ $member->percentage_fine_on_due =='0'?'Selected':''}}>0 % Fine on due amount</option>
+          <option value="0.5" {{ $member->percentage_fine_on_due =='0.5'?'Selected':''}}>0.5 % Fine on due amount</option>
+          <option value="1" {{ $member->percentage_fine_on_due =='1'?'Selected':''}}>1 % Fine on due amount</option>
+          <option value="1.5" {{ $member->percentage_fine_on_due =='1.5'?'Selected':''}}>1.5 % Fine on due amount</option>
+          <option value="2" {{ $member->percentage_fine_on_due =='2'?'Selected':''}}>2 % Fine on due amount</option>
         </select>
       </div>
     </div>
     <div class="col-md-6">
-      <input type="hidden" name="extra_charge" id="extra_charge">
+      <input type="hidden" name="extra_charge" id="extra_charge" value="{{ $member->extra_charge }}">
       <div class="input-group input-group-outline my-3">
         <div class="multiselect text-muted">
           <div class="selectBox" onclick="showCheckboxes()">
@@ -204,16 +200,16 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">Sanctioned Amount</label>
-        <input type="number" name="final_sanctioned_amount" id="final_sanctioned_amount" class="form-control" autocomplete="off" required>
+        <input type="number" name="final_sanctioned_amount" value="{{ $member->final_sanctioned_amount }}" id="final_sanctioned_amount" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <select name="installment_type" id="installment_type" class="form-control" required>
-          <option value="not_selected" class="text-muted" selected>Select Installment type</option>
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
+        <select name="installment_type" id="installment_type" value="{{ $member->installment_type }}" class="form-control" required>
+          <!-- <option value="not_selected" class="text-muted">Select Installment type</option> -->
+          <option value="daily" {{ $member->installment_type =='daily'?'Selected':''}}>Daily</option>
+          <option value="weekly" {{ $member->installment_type =='weekly'?'Selected':''}}>Weekly</option>
+          <option value="monthly" {{ $member->installment_type =='monthly'?'Selected':''}}>Monthly</option>
         </select>
       </div>
     </div>
