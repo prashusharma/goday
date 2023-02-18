@@ -14,7 +14,11 @@ class BranchController extends Controller
      */
     public function index()
     {
-        $data = Branch::orderBy('id', 'DESC')->paginate(5);
+        if(auth()->user()->role != 'super-admin'){
+            $data = Branch::where('company_id',auth()->user()->id)->orderBy('id', 'DESC')->paginate(5);
+        }else{
+            $data = Branch::orderBy('id', 'DESC')->paginate(5);
+        }
         return view('branch.index', compact('data'));
            
     }

@@ -55,9 +55,11 @@ class GroupController extends Controller
     public function show($id)
     {
        
-        // dd($id);
-        $data = Group::where('branch_id',$id)->orderBy('id', 'DESC')->paginate(5);
-        // dd($data);
+        if(auth()->user()->role != 'super-admin'){
+            $data = Group::where('company_id',auth()->user()->id)->where('branch_id',$id)->orderBy('id', 'DESC')->paginate(5);
+        }else{
+            $data = Group::where('branch_id',$id)->orderBy('id', 'DESC')->paginate(5);
+        }
         return view('group.show', compact('data', "id"));
     }
 

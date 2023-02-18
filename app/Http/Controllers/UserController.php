@@ -75,22 +75,38 @@ class UserController extends Controller
     }
     public function activeMember()
     {
-        $data = User::where('status', 1)->paginate(5);
+        if(auth()->user()->role != 'super-admin'){
+            $data = User::where('company_id',auth()->user()->id)->where('status', 1)->paginate(5);
+        }else{
+            $data = User::where('status', 1)->paginate(5);
+        }
         return view('users.active', compact('data'));
     }
     public function pendingMember()
     {
-        $data = User::where('status', 0)->paginate(5);
+        if(auth()->user()->role != 'super-admin'){
+            $data = User::where('company_id',auth()->user()->id)->where('status', 0)->paginate(5);
+        }else{
+            $data = User::where('status', 0)->paginate(5);
+        }
         return view('users.pending', compact('data'));
     }
     public function deletedMember()
     {
-        $data = User::where('deleted', 1)->paginate(5);
+        if(auth()->user()->role != 'super-admin'){
+            $data = User::where('company_id',auth()->user()->id)->where('deleted', 1)->paginate(5);
+        }else{
+            $data = User::where('deleted', 1)->paginate(5);
+        }
         return view('users.deleted', compact('data'));
     }
     public function staffMember()
     {
-        $data = User::where('role', 'staff')->paginate(5);
+        if(auth()->user()->role != 'super-admin'){
+            $data = User::where('company_id',auth()->user()->id)->where('role', 'staff')->paginate(5);
+        }else{
+            $data = User::where('role', 'staff')->paginate(5);
+        }
         return view('users.staff', compact('data'));
     }
 
@@ -109,7 +125,6 @@ class UserController extends Controller
 
     public function editMember($id){
         $member = User::find($id);
-        // dd($member);
         return view('member.edit')->with('member', $member);
     }
 
