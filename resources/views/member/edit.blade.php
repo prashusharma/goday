@@ -91,7 +91,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="m-0 mx-2 d-flex" style="align-items: center;">Branch Opening date</label>
+        <label class="m-0 mx-2 d-flex" style="align-items: center;">{{ auth()->user()->branch_label }} Opening date</label>
         <input type="date" name="sanction_date" value="{{ $member->sanction_date }}" class="form-control" autocomplete="off" required>
       </div>
     </div>

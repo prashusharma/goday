@@ -26,7 +26,7 @@
 
 <form action="{{ url('location-master') }}" method="POST">
   @csrf
-  <div class="column">
+  <div class="row">
     <input type="hidden" name="company_id" value="{{ auth()->user()->id }}">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
@@ -77,7 +77,9 @@
         <input type="text" name="city" class="form-control" autocomplete="off">
       </div>
     </div>
-    <div class="col-md-6">
+  </div>
+  <div class="row">
+  <div class="col-md-6">
       <div class="input-group input-group-outline my-3" required>
         <label class="form-label">Enter Area name</label>
         <input type="text" name="area" class="form-control" autocomplete="off">
@@ -90,7 +92,6 @@
       </div>
     </div>
   </div>
-
   <div class="row">
 
     <div class="col-md-6">

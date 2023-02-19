@@ -9,6 +9,7 @@ class Group extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'company_id',
         'branch_id',
         'group_name',
         'group_code',
@@ -21,4 +22,9 @@ class Group extends Model
         'area',
         'pincode',
     ];
+
+    public function branch()
+    {
+        return $this->hasOne(Branch::class, "id", "branch_id");
+    }
 }

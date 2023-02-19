@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section("title", "Edit Branch")
+@section("title")
+Edit {{ auth()->user()->group_label }}
+@endsection
 
 
 @section("css")
@@ -29,13 +31,13 @@
     <input type="hidden" name="company_id" value="{{ auth()->user()->id }}">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Name</label>
+        <label class="form-label">{{ auth()->user()->group_label }} Name</label>
         <input type="text" name="group_name" class="form-control" autocomplete="off" value="{{ $group->group_name }}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Code</label>
+        <label class="form-label">{{ auth()->user()->group_label }} Code</label>
         <input type="text" name="group_code" class="form-control" autocomplete="off" value="{{ $group->group_code }}">
       </div>
     </div>
@@ -49,7 +51,7 @@
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Branch Opening Fund</label>
+        <label class="form-label">{{ auth()->user()->group_label }} Opening Fund</label>
         <input type="number" name="group_opening_fund" class="form-control" autocomplete="off" value="{{ $group->group_opening_fund }}">
       </div>
     </div>
@@ -57,13 +59,13 @@
   <div class="row">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Email</label>
+        <label class="form-label">{{ auth()->user()->group_label }} Email</label>
         <input type="email" name="group_email" class="form-control" autocomplete="off" value="{{ $group->group_email }}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Contact Number</label>
+        <label class="form-label">{{ auth()->user()->group_label }} Contact Number</label>
         <input type="number" name="group_contact_number" class="form-control" autocomplete="off" value="{{ $group->group_contact_number }}">
       </div>
     </div>
@@ -71,13 +73,13 @@
   <div class="row">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group State</label>
+        <label class="form-label">{{ auth()->user()->group_label }} State</label>
         <input type="text" name="state" class="form-control" autocomplete="off" value="{{ $group->state }}">
       </div>
     </div>
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group City</label>
+        <label class="form-label">{{ auth()->user()->group_label }} City</label>
         <input type="text" name="city" class="form-control" autocomplete="off" value="{{ $group->city }}">
       </div>
     </div>
@@ -85,7 +87,7 @@
   <div class="row">
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Area</label>
+        <label class="form-label">{{ auth()->user()->group_label }} Area</label>
         <input type="text" name="area" class="form-control" autocomplete="off" value="{{ $group->area }}">
       </div>
     </div>

@@ -66,10 +66,10 @@
                             </a>
                         @endif
                     </p>
-                  <p class="mt-2 text-sm text-center">
+                  <!-- <p class="mt-2 text-sm text-center">
                     Don't have an account?
                     <a href="{{ route('register') }}" class="text-primary text-gradient font-weight-bold">Sign up</a>
-                  </p>
+                  </p> -->
                 </form>
               </div>
             </div>

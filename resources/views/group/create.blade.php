@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
-@section("title", "Create Group")
+
+@section("title")
+Create {{ auth()->user()->group_label }}
+@endsection
 
 @section("action-btn")
   <a class="btn btn-outline-warning rounded-0 btn-sm"  href="{{ route('group.show',$id) }}">Back</a>
@@ -30,69 +33,76 @@
     <input type="hidden" name="branch_id" value="{{ $id }}">
     <input type="hidden" name="company_id" value="{{ auth()->user()->id }}">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Name</label>
+      <div class="input-group input-group-outline my-3 ">
+        <label class="form-label">{{ auth()->user()->group_label }} Name</label>
         <input type="text" name="group_name" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Code</label>
+      <div class="input-group input-group-outline my-3 ">
+        <label class="form-label">{{ auth()->user()->group_label }} Code</label>
         <input type="text" name="group_code" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
   <div class="row">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-      <label class="m-0 mx-2 d-flex" style="align-items: center;">Group Opening date</label>
+      <div class="input-group input-group-outline my-3 ">
+      <label class="m-0 mx-2 d-flex" style="align-items: center;">{{ auth()->user()->group_label }} Opening date</label>
         <input type="date" name="group_opening_date" class="form-control" autocomplete="off" required>
       </div>
     </div>
+    @php
+        $state_name = '';
+        $city_name = '';
+        $branch_fund = 0;
+        getStateCityFund($state_name, $city_name, $branch_fund, $id);
+      @endphp
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Branch Opening Fund</label>
-        <input type="number" name="group_opening_fund" class="form-control" autocomplete="off" required>
+      <div class="input-group input-group-outline my-3  {{ $branch_fund ? 'is-filled' : '' }}">
+        <label class="form-label">{{ auth()->user()->group_label }} Available Fund</label>
+        <input type="number" name="group_opening_fund" value="{{ $branch_fund }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
   <div class="row">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Email</label>
+      <div class="input-group input-group-outline my-3 ">
+        <label class="form-label">{{ auth()->user()->group_label }} Email</label>
         <input type="email" name="group_email" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Contact Number</label>
+      <div class="input-group input-group-outline my-3 ">
+        <label class="form-label">{{ auth()->user()->group_label }} Contact Number</label>
         <input type="number" name="group_contact_number" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
   <div class="row">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group State</label>
-        <input type="text" name="state" class="form-control" autocomplete="off" required>
+      
+      <div class="input-group input-group-outline my-3 {{ $state_name ? 'is-filled' : '' }}">
+        <label class="form-label">{{ auth()->user()->group_label }} State</label>
+        <input type="text" name="state" value="{{ $state_name }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group City</label>
-        <input type="text" name="city" class="form-control" autocomplete="off" required>
+      <div class="input-group input-group-outline my-3 {{ $city_name ? 'is-filled' : '' }} ">
+        <label class="form-label">{{ auth()->user()->group_label }} City</label>
+        <input type="text" name="city" value="{{ $city_name }}" class="form-control" autocomplete="off" required>
       </div>
     </div>
   </div> 
   <div class="row">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
-        <label class="form-label">Group Area</label>
+      <div class="input-group input-group-outline my-3 ">
+        <label class="form-label">{{ auth()->user()->group_label }} Area</label>
         <input type="text" name="area" class="form-control" autocomplete="off" required>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3">
+      <div class="input-group input-group-outline my-3 ">
         <label class="form-label">Pincode</label>
         <input type="number" name="pincode" class="form-control" autocomplete="off" required>
       </div>
@@ -103,7 +113,7 @@
   <div class="row">
     
     <div class="col-md-6">
-        <div class="input-group input-group-outline my-3">
+        <div class="input-group input-group-outline my-3 ">
             <button class="btn btn-outline-danger rounded-0 w-100" type="submit">Submit</button>
         </div>
     </div>

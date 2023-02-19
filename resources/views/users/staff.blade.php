@@ -15,6 +15,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Roles</th>
+        <th>Created</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -40,6 +41,9 @@
             @endforeach
           @endif -->
           {{ $user->role }}
+        </td>
+        <td>
+          {{ $user->created_at }}
         </td>
         <td class="d-flex justify-content-evenly">
           <span class="text-warning me-2">

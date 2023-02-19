@@ -48,6 +48,10 @@ class User extends Authenticatable
         'percentage_fine_on_due',
         'extra_charge',
         'final_sanctioned_amount',
+        'system_setting',
+        'group_label',
+        'branch_label',
+        'company_label',
         'remember_token',
         'email_verified_at',
     ];

@@ -6,6 +6,15 @@
 <a class="btn btn-outline-warning" style="display: none;" href="{{ route('recyclebin.index') }}">Change Password</a>
 @endsection
 
+@php
+$company_name = '';
+if(auth()->user()->role == 'super-admin'){
+  $company_name = 'Loan App Master';
+}else{
+  auth()->user()->company_label != '' ? $company_name = auth()->user()->company_label : $company_name = auth()->user()->business_name;
+}
+
+@endphp
 @section('content')
 <section style="background-color: #eee;">
   <div class="container py-4">
@@ -18,7 +27,7 @@
           <div class="card-body text-center">
             <!-- <img src="{{ asset('images/goday.jfif') }}" alt="avatar" class="img-fluid" style="width: 150px;"> -->
             <h3 class="my-3">Logo here</h3>
-            <h5 class="my-3">{{ auth()->user()->business_name != "" ? auth()->user()->business_name : "Loan App Master" }}</h5>
+            <h5 class="my-3">{{ $company_name }}</h5>
             <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
             <a class="text-muted mb-4" target="_blank" href="{{ auth()->user()->website != "" ? auth()->user()->website : "http://goday.in/" }}">{{ auth()->user()->website != "" ? auth()->user()->website : "http://goday.in/" }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right mx-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />

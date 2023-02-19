@@ -22,6 +22,7 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('url-manager', [App\Http\Controllers\UrlManagerController::class, "index"]);
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', App\Http\Controllers\RoleController::class);
     Route::resource('users', App\Http\Controllers\UserController::class);
@@ -37,12 +38,19 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('system-setting', App\Http\Controllers\SystemSettingController::class);
     Route::resource('admin-setting', App\Http\Controllers\AdminController::class);
     Route::resource('department', App\Http\Controllers\DepartmentController::class);
+    Route::resource('list-branch-group', App\Http\Controllers\ListBranchGroupController::class);
+    Route::get('get-branch-group', [App\Http\Controllers\ListBranchGroupController::class, "GroupRelatedBranch"])
+    ->name("branch.group.filter");
+
+
+
+    Route::patch('systemupdate/{id}', [UserController::class, 'updateSystemSetting'])->name('users.updateSystemSetting');
     Route::get('users/member/{id}', [UserController::class, 'showMember'])->name('users.showMember');
     Route::get('member/edit/{id}', [UserController::class, 'editMember'])->name('users.editMember');
     Route::get('active-member', [UserController::class, 'activeMember'])->name('activeMember');
     Route::get('pending-member', [UserController::class, 'pendingMember'])->name('pendingMember');
     Route::get('deleted-member', [UserController::class, 'deletedMember'])->name('deletedMember');
     Route::get('staff', [UserController::class, 'staffMember'])->name('staffMember');
-    Route::get('users/Createmember/{id}', [UserController::class, 'createMember'])->name('users.createMember');
+    Route::get('list-branch-group/users/{id}', [UserController::class, 'createMember'])->name('users.createMember');
     Route::put('/users/{user}/status', [UserController::class, 'updateStatus'])->name('users.updateStatus');
 });

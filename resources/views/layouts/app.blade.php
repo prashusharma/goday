@@ -36,7 +36,15 @@
         }
     </style>
 </head>
+@auth
+    @php
+        $active_count = 0; 
+        $pending_count = 0;
+        $deleted_count = 0;
 
+        countActivePendingDelete($active_count, $pending_count, $deleted_count);
+    @endphp
+@endauth
 <body class="@if(Auth::check()) g-sidenav-show @endif">
     @guest
     <div class="container position-sticky z-index-sticky top-0">
@@ -44,7 +52,7 @@
             <div class="col-12">
                 <!-- Navbar -->
                 <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-                    <div class="container-fluid ps-2 pe-0">
+                    <div class="container-fluid ps-2 pe-0" style="justify-content: center;">
                         <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="#">
                             GoDay
                         </a>
@@ -55,22 +63,6 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navigation">
-                            <ul class="navbar-nav mx-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link me-2" href="{{ route("register") }}">
-                                        <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                                        Sign Up
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link me-2" href="{{ route("login") }}">
-                                        <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                                        Sign In
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </nav>
                 <!-- End Navbar -->
@@ -141,6 +133,7 @@
                         <span class="nav-link-text ms-1">Company Profile</span>
                     </a>
                 </li>
+                @if(auth()->user()->role != 'super-admin')
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#createMasterOption" class='nav-link text-white' aria-controls="createMasterOption" role="button" aria-expanded="false">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -155,26 +148,27 @@
                         <ul class="nav ">
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('location-master.index') }}">
-                                    <!-- <span class="sidenav-mini-icon"> D </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> Location Master </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="{{ route('users.create') }}">
-                                    <!-- <span class="sidenav-mini-icon"> S </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> HR Master </span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="">
-                                    <!-- <span class="sidenav-mini-icon"> D </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> Loan Master </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link text-white " href="">
-                                    <!-- <span class="sidenav-mini-icon"> S </span> -->
                                     <span class="sidenav-normal  ms-2  ps-1"> Deposit Master </span>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="">
+                                    <span class="sidenav-normal  ms-2  ps-1"> KYC Master </span>
                                 </a>
                             </li>
                         </ul>
@@ -191,6 +185,7 @@
                         <span class="nav-link-text ms-1">Office Setup</span>
                     </a>
                 </li>
+                
                 <li class="nav-item">
                     <a data-bs-toggle="collapse" href="#staffSetupOption" class='nav-link text-white' aria-controls="staffSetupOption" role="button" aria-expanded="false">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -222,8 +217,9 @@
                         </ul>
                     </div>
                 </li>
+                
                 <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#manageMembersOption" class='nav-link text-white' aria-controls="manageMembersOption" role="button" aria-expanded="false">
+                    <a data-bs-toggle="collapse" href="#manageMembersOption" class='nav-link text-white {{ (request()->is("deleted-member*") || request()->is("active-member*") || request()->is("pending-member*")) ? "active" : "" }}' aria-controls="manageMembersOption" role="button" aria-expanded="{{ (request()->is("deleted-member*") || request()->is("active-member*") || request()->is("pending-member*") || request()->is("list-branch-group*"))  ? "true" : "false" }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
                                 <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
@@ -231,32 +227,32 @@
                         </div>
                         <span class="nav-link-text ms-2 ps-1">Manage Members</span>
                     </a>
-                    <div class="collapse" id="manageMembersOption">
+                    <div class="collapse {{ (request()->is("deleted-member*") || request()->is("active-member*") || request()->is("pending-member*")|| request()->is("list-branch-group*")) ? "show" : ""  }}" id="manageMembersOption">
                         <ul class="nav ">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('branch.index') }}">
+                                <a class="nav-link text-white  {{ request()->is("list-branch-group*") ? "active bg-gradient-primary" : "" }}" href="{{ route('list-branch-group.index') }}">
                                     <span class="sidenav-normal  ms-2  ps-1"> Add New Account </span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white " href="{{ route('activeMember') }}">
-                                    <span class="sidenav-normal  ms-2  ps-1"> View Active Account </span>
+                                <a class="nav-link text-white {{ request()->is("active-member*") ? "active bg-gradient-primary" : "" }}" href="{{ route('activeMember') }}">
+                                    <span class="sidenav-normal  ms-2  ps-1"> Active Account <span class="ms-2 badge badge-sm badge-circle badge-danger border border-white border-2">{{ $active_count }}</span></span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white " href="{{ route('pendingMember') }}">
-                                    <span class="sidenav-normal  ms-2  ps-1"> View Pending Account </span>
+                                <a class="nav-link text-white {{ request()->is("pending-member*") ? "active bg-gradient-primary" : "" }}" href="{{ route('pendingMember') }}">
+                                    <span class="sidenav-normal  ms-2  ps-1"> Pending Account <span class="ms-2 badge badge-sm badge-circle badge-danger border border-white border-2">{{ $pending_count }}</span></span>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link text-white " href="{{ route('deletedMember') }}">
-                                    <span class="sidenav-normal  ms-2  ps-1"> View Closed Account </span>
+                                <a class="nav-link text-white {{ request()->is("deleted-member*") ? "active bg-gradient-primary" : "" }}" href="{{ route('deletedMember') }}">
+                                    <span class="sidenav-normal  ms-2  ps-1"> Closed Account <span class="ms-2 badge badge-sm badge-circle badge-danger border border-white border-2">{{ $deleted_count }}</span></span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
-
+                @endif
                 <li class="nav-item">
                     <a class='nav-link text-white  {{ request()->is("activity*") ? "active  bg-gradient-primary" : "" }}' href="{{ route('activity.index') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

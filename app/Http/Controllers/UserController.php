@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -173,6 +174,16 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
+            ->with('success', 'User updated successfully');
+    }
+    public function updateSystemSetting(Request $request, $id)
+    {
+
+        $input = $request->all();
+        $user = User::find($id);
+        $user->update($input);
+
+        return redirect()->route('dashboard.index')
             ->with('success', 'User updated successfully');
     }
 
